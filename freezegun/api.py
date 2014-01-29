@@ -72,6 +72,15 @@ class FakeDate(with_metaclass(FakeDateMeta, real_date)):
         else:
             return result
 
+    def replace(self, **kwargs):
+        if kwargs.get("tzinfo"):
+            return datetime.datetime(
+                self.year,
+                self.month,
+                self.day).replace(tzinfo=kwargs.get('tzinfo'))
+        else:
+            return self
+
     @classmethod
     def today(cls):
         result = cls.date_to_freeze
